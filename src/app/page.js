@@ -3,8 +3,12 @@ import Link from 'next/link';
 export default async function Home() {
   let rentListings = null;
   try {
-    const result = await fetch(process.env.URL + '/api/listing/get', {
+    const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+    const res = await fetch(`${baseUrl}/api/listing/get`, {     
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         type: 'rent',
         limit: 4,
@@ -12,15 +16,19 @@ export default async function Home() {
       }),
       cache: 'no-store',
     });
-    const data = await result.json();
+    const data = await res.json();
     rentListings = data;
   } catch (error) {
     rentListings = { title: 'Failed to load listing' };
   }
   let saleListings = null;
   try {
-    const result = await fetch(process.env.URL + '/api/listing/get', {
+    const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+    const res = await fetch(`${baseUrl}/api/listing/get`, {     
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         type: 'sale',
         limit: 4,
@@ -28,15 +36,19 @@ export default async function Home() {
       }),
       cache: 'no-store',
     });
-    const data = await result.json();
+    const data = await res.json();
     saleListings = data;
   } catch (error) {
     saleListings = { title: 'Failed to load listing' };
   }
   let offerListings = null;
   try {
-    const result = await fetch(process.env.URL + '/api/listing/get', {
+    const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+    const res = await fetch(`${baseUrl}/api/listing/get`, {    
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         limit: 4,
         order: 'asc',
@@ -44,7 +56,7 @@ export default async function Home() {
       }),
       cache: 'no-store',
     });
-    const data = await result.json();
+    const data = await res.json();
     offerListings = data;
   } catch (error) {
     offerListings = { title: 'Failed to load listing' };

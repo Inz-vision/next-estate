@@ -29,6 +29,11 @@ export const createOrUpdateUser = async (
   }
 };
 
+(async () => {
+  await connect();
+  console.log('Test connection successful');
+})();
+
 export const deleteUser = async (id) => {
   try {
     await connect();

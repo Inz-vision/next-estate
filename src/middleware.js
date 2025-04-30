@@ -1,6 +1,9 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default clerkMiddleware();
+export default function middleware(req, ev) {
+  console.log('Middleware triggered for:', req.url);
+  return clerkMiddleware()(req, ev);
+}
 
 export const config = {
   matcher: [

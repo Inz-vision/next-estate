@@ -30,7 +30,8 @@ export default function UpdateListing() {
   });
   useEffect(() => {
     const fetchListing = async () => {
-      const res = await fetch('/api/listing/get', {
+        const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+        const res = await fetch(`${baseUrl}/api/listing/get`, {        
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -146,14 +147,15 @@ export default function UpdateListing() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const res = await fetch('/api/listing/update', {
+      const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+      const res = await fetch(`${baseUrl}/api/listing/update`, {       
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...formData,
-          userMongoId: user.publicMetadata.userMogoId,
+          userMongoId: user?.publicMetadata?.userMogoId,
           listingId,
         }),
       });

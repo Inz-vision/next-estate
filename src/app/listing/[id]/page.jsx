@@ -9,12 +9,16 @@ import {
   export default async function Listing({ params }) {
     let listing = null;
     try {
-      const result = await fetch(process.env.URL + '/api/listing/get', {
+      const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+      const res = await fetch(`${baseUrl}/api/listing/get`, {         
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+          },
         body: JSON.stringify({ listingId: params.id }),
         cache: 'no-store',
       });
-      const data = await result.json();
+      const data = await res.json();
       listing = data[0];
     } catch (error) {
       listing = { title: 'Failed to load listing' };
