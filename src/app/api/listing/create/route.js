@@ -12,9 +12,9 @@ export const POST = async (req) => {
     const data = await req.json();
     console.log('Request data:', data);
 
-    if (!user || user?.publicMetadata?.userMogoId !== data?.userMongoId) {
+    if (!user || user?.publicMetadata?.userMongoId !== data?.userMongoId) {
       console.log('Unauthorized access:', {
-        userMongoIdFromClerk: user?.publicMetadata?.userMogoId,
+        userMongoIdFromClerk: user?.publicMetadata?.userMongoId,
         userMongoIdFromRequest: data?.userMongoId,
       });
       return new Response('Unauthorized', {
@@ -22,7 +22,7 @@ export const POST = async (req) => {
       });
     }
     const newListing = await Listing.create({
-      userRef: user?.publicMetadata?.userMogoId,
+      userRef: user?.publicMetadata?.userMongoId,
       name: data.name,
       description: data.description,
       address: data.address,

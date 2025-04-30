@@ -155,7 +155,7 @@ export default function UpdateListing() {
         },
         body: JSON.stringify({
           ...formData,
-          userMongoId: user?.publicMetadata?.userMogoId,
+          userMongoId: user?.publicMetadata?.userMongoId,
           listingId,
         }),
       });
