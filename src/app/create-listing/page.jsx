@@ -144,17 +144,22 @@ export default function CreateListing() {
         },
         body: JSON.stringify({
           ...formData,
-          userMongoId: user?.publicMetadata?.userMogoId,
+          userMongoId: user?.publicMetadata?.userMongoId,
         }),
       });
       const data = await res.json();
+
       setLoading(false);
-      if (data.success === false) {
-        setError(data.message);
+
+      if (!res.ok) {
+        // Handle server-side error
+        setError(data.message || 'Something went wrong');
+        return;
       }
+
       router.push(`/listing/${data._id}`);
     } catch (error) {
-      setError(error.message);
+      setError('Failed to create listing. Please try again.');
       setLoading(false);
     }
   };
