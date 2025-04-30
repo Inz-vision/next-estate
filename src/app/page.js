@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default async function Home() {
   let rentListings = null;
   try {
-    const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'; // Use absolute URL
     const res = await fetch(`${baseUrl}/api/listing/get`, {     
       method: 'POST',
       headers: {
@@ -23,7 +23,7 @@ export default async function Home() {
   }
   let saleListings = null;
   try {
-    const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'; // Use absolute URL
     const res = await fetch(`${baseUrl}/api/listing/get`, {     
       method: 'POST',
       headers: {
@@ -43,7 +43,7 @@ export default async function Home() {
   }
   let offerListings = null;
   try {
-    const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'; // Use absolute URL
     const res = await fetch(`${baseUrl}/api/listing/get`, {    
       method: 'POST',
       headers: {

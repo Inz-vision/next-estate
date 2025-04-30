@@ -30,7 +30,7 @@ export default function UpdateListing() {
   });
   useEffect(() => {
     const fetchListing = async () => {
-        const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'; // Use absolute URL
         const res = await fetch(`${baseUrl}/api/listing/get`, {        
         method: 'POST',
         headers: {
@@ -147,7 +147,7 @@ export default function UpdateListing() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'; // Use absolute URL
       const res = await fetch(`${baseUrl}/api/listing/update`, {       
         method: 'POST',
         headers: {

@@ -49,7 +49,7 @@ export default function Search() {
       setLoading(true);
       setShowMore(false);
       const searchQuery = urlParams.toString();
-      const baseUrl = process.env.URL || 'http://localhost:3000'; // Use absolute URL
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'; // Use absolute URL
       const res = await fetch(`${baseUrl}/api/listing/get`, {          
         method: 'POST',        
         body: JSON.stringify({
