@@ -15,7 +15,7 @@ import {
         headers: {
             'Content-Type': 'application/json',
           },
-        body: JSON.stringify({ listingId: params.id }),
+        body: JSON.stringify({ listingId: (await params).id }),
         cache: 'no-store',
       });
       const data = await res.json();

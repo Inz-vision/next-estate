@@ -48,7 +48,7 @@ export default function Search() {
     const fetchListings = async () => {
       setLoading(true);
       setShowMore(false);
-      const searchQuery = urlParams.toString();
+      const searchQuery = await urlParams.toString();
       const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'; // Use absolute URL
       const res = await fetch(`${baseUrl}/api/listing/get`, {          
         method: 'POST',        
@@ -123,7 +123,8 @@ export default function Search() {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set('startIndex', startIndex);
     const searchQuery = urlParams.toString();
-    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'; // Use absolute URL
+    const res = await fetch(`${baseUrl}/api/listing/get?${searchQuery}`);     
     const data = await res.json();
     if (data.length < 9) {
       setShowMore(false);
@@ -222,7 +223,7 @@ export default function Search() {
               className='border rounded-lg p-3'
             >
               <option value='regularPrice_desc'>Price high to low</option>
-              <option value='regularPrice_asc'>Price low to hight</option>
+              <option value='regularPrice_asc'>Price low to high</option>
               <option value='createdAt_desc'>Latest</option>
               <option value='createdAt_asc'>Oldest</option>
             </select>
@@ -248,7 +249,7 @@ export default function Search() {
           {!loading &&
             listings &&
             listings.map((listing) => (
-              <ListingItem key={listing._id} listing={listing} />
+              <ListingItem key={listing.id || listing._id} listing={listing} />
             ))}
           {showMore && (
             <button

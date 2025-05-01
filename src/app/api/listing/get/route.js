@@ -1,8 +1,19 @@
 import Listing from '../../../../lib/models/listing.model.js';
 import { connect } from '../../../../lib/mongodb/mongoose.js';
 export const POST = async (req) => {
+  if (req.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000', // Allow your frontend origin
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
+  }
   await connect();
   const data = await req.json();
+
   try {
     const startIndex = parseInt(data.startIndex) || 0;
     const limit = parseInt(data.limit) || 9;
@@ -41,10 +52,22 @@ export const POST = async (req) => {
     .skip(startIndex)
     .limit(limit)
     .lean(); // Convert to plain objects
-    return new Response(JSON.stringify(listings), {
+     return new Response(JSON.stringify(listings), {
       status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000', // Allow your frontend origin        
+      },
     });
   } catch (error) {
-    console.log('Error getting posts:', error);
+    console.error('Error getting posts:', error);
+    return new Response(
+      JSON.stringify({ success: false, message: 'Error fetching listings' }),
+      {
+        status: 500,
+        headers: {
+          'Access-Control-Allow-Origin': 'http://localhost:3000',          
+        },
+      }
+    );
   }
 };
